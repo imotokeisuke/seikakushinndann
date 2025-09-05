@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>本当の性格診断</title>
+<style>
+body { font-family: sans-serif; padding: 20px; max-width: 600px; margin: auto; }
+h1 { text-align: center; }
+button { padding: 10px 20px; font-size: 16px; margin-top: 10px; }
+</style>
+</head>
+<body>
+
+<h1>本当の性格診断</h1>
+<p id="questionText"></p>
+
+<div id="buttons">
+  <button onclick="answer('yes')">はい</button>
+  <button onclick="answer('no')">いいえ</button>
+</div>
+
+<p id="result" style="font-weight:bold; font-size:18px; margin-top:20px;"></p>
+
+<script>
+const questions = [
+  "1. 死ぬる覚悟がある",
+  "2. 欲しいのは芸よりも血",
+  "3. 人間国宝に興味がある",
+  "4. ドライブ中に助手席にいるのに寝てしまう",
+  "5. 眠いが口癖",
+  "6. 目を開けたまま寝ることがある",
+  "7. 飲み会の後によくタクシーを使おうとして止められる",
+  "8. 欲しいのは芸よりも血よりも酒",
+  "9. 今お酒を飲みたい",
+  "10. 私は髙木玲那だ"
+];
+
+let answers = [];
+let current = 0;
+
+function showQuestion() {
+  if(current < questions.length){
+    document.getElementById("questionText").innerText = questions[current];
+  } else {
+    calculateResult();
+  }
+}
+
+function answer(value){
+  answers.push(value);
+  current++;
+  showQuestion();
+}
+
+function calculateResult() {
+  let result = "お前は誰だ";
+
+  if(answers[0]==="yes" && answers[1]==="yes" && answers[2]==="yes"){
+    result = "KHST（国宝級ストイック）";
+  }
+  if(answers[9]==="yes" || (answers[3]==="yes" && answers[4]==="yes" && answers[5]==="yes" && answers[6]==="yes" && answers[7]==="yes" && answers[8]==="yes")){
+    result = "TGRN（髙木玲那）";
+  }
+  else if(answers[3]==="yes" && answers[4]==="yes" && answers[5]==="yes"){
+    result = "GITT（限界意識飛び太郎）";
+  }
+  else if(answers[6]==="yes" && answers[7]==="yes" && answers[8]==="yes"){
+    result = "ADKM（アドレナリン小娘）";
+  }
+
+  document.getElementById("questionText").style.display = "none";
+  document.getElementById("buttons").style.display = "none";
+  document.getElementById("result").innerText = "診断結果: " + result;
+}
+
+// 最初の質問表示
+showQuestion();
+</script>
+
+</body>
+</html>
